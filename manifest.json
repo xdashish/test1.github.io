@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Meta Business Suite Bulk Scheduler",
+  "description": "Bulk-schedule Facebook posts in Meta Business Suite using images and one caption per image.",
+  "version": "1.0.0",
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://business.facebook.com/*",
+    "https://www.facebook.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Bulk Scheduler"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://business.facebook.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
