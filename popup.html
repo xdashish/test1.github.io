@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bulk Scheduler</title>
+  <style>
+    :root {
+      font-family: Inter, Arial, sans-serif;
+      color: #0f172a;
+    }
+
+    body {
+      width: 360px;
+      margin: 0;
+      padding: 14px;
+      background: #f8fafc;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: #0f172a;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #334155;
+    }
+
+    input[type="date"],
+    input[type="number"],
+    textarea,
+    button {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 13px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      background: #1d4ed8;
+      color: #fff;
+      border: none;
+      font-weight: 600;
+    }
+
+    button.secondary {
+      background: #0ea5e9;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: #475569;
+      margin-top: 4px;
+    }
+
+    .status {
+      max-height: 180px;
+      overflow: auto;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      white-space: pre-wrap;
+    }
+
+    .error {
+      color: #b91c1c;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .success {
+      color: #166534;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .small {
+      font-size: 11px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Meta Bulk Scheduler</h1>
+
+  <div class="card">
+    <label for="imagePicker">1) Select Images</label>
+    <input id="imagePicker" type="file" accept="image/*" multiple />
+    <div id="imageCount" class="meta">0 image(s) selected</div>
+  </div>
+
+  <div class="card">
+    <label for="captionsInput">2) Paste Captions</label>
+    <textarea id="captionsInput" placeholder="Enter one caption per line"></textarea>
+    <div id="captionCount" class="meta">0 caption(s)</div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div style="flex:1;">
+        <label for="startDate">Start Date</label>
+        <input id="startDate" type="date" />
+      </div>
+      <div style="width:120px;">
+        <label for="postsPerDay">Posts/Day</label>
+        <input id="postsPerDay" type="number" min="1" max="24" value="3" />
+      </div>
+    </div>
+    <div class="small">Default slots: 10:00, 14:00, 18:00 (extends if posts/day &gt; 3)</div>
+  </div>
+
+  <button id="startBtn">Start Scheduling</button>
+  <div id="validationMsg"></div>
+
+  <div class="card" style="margin-top:10px;">
+    <label>Status</label>
+    <div id="progressText" class="meta">Idle</div>
+    <div id="statusLog" class="status">Waiting to start...</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
